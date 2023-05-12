@@ -23,6 +23,7 @@
 #include <unordered_set>
 #include <memory>
 #include <array>
+#include <deque>
 
 // Headers for multithreading
 #include <thread>

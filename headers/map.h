@@ -29,11 +29,11 @@ namespace rtd
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     private:
-        std::unique_ptr<uint8_t[]> map;
-        std::array<rtd::Sprite, TileType::COUNT> tiles;
-        int rows;
-        int cols;
-        int tileSize;
+        std::unique_ptr<uint8_t[]> m_map;
+        std::array<rtd::Sprite, TileType::COUNT> m_tiles;
+        int m_rows;
+        int m_cols;
+        int m_tileSize;
     };
 }
 

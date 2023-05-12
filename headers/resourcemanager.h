@@ -24,8 +24,8 @@ namespace rtd
         ResourceManager(const ResourceManager &) = delete;
         ResourceManager &operator=(const ResourceManager &) = delete;
 
-        std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures;
-        std::unordered_map<std::string, std::shared_ptr<rtd::Sprite>> sprites;
+        std::unordered_map<std::string, std::shared_ptr<sf::Texture>> m_textures;
+        std::unordered_map<std::string, std::shared_ptr<rtd::Sprite>> m_sprites;
     };
 }
 

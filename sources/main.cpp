@@ -3,6 +3,7 @@
 
 #include "resourcemanager.h"
 #include "map.h"
+#include "fpstracker.h"
 
 int cols = 61;
 int rows = 34;
@@ -19,8 +20,7 @@ int main(int argc, char **argv)
     font.loadFromFile("resources\\CONSOLA.TTF");
     sf::Text text("", font);
     std::ostringstream ostr;
-
-    int frame = 0;
+    rtd::FpsTracker tracker;
 
     while (window.isOpen())
     {
@@ -30,9 +30,13 @@ int main(int argc, char **argv)
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        tracker.update();
 
         ostr.str("");
-        ostr << frame++;
+        ostr << "Average FPS: " << tracker.getAverageFps() << '\n'
+             << "Average Frame Time: " << tracker.getAverageFrameTime() << '\n'
+             << "Min Frame Time: " << tracker.getMinFrameTime() << '\n'
+             << "Max Frame Time: " << tracker.getMaxFrameTime();
         text.setString(ostr.str());
 
         window.clear();

@@ -14,32 +14,32 @@ namespace rtd
 
     sf::Texture &ResourceManager::getTexture(const std::string &filename)
     {
-        if (textures.find(filename) != textures.end())
-            return *textures.at(filename);
+        if (m_textures.find(filename) != m_textures.end())
+            return *m_textures.at(filename);
 
         std::cout << "Generate texture from " << filename << std::endl;
         auto newTexture = std::make_shared<sf::Texture>();
         if (!newTexture->loadFromFile(filename))
             throw std::runtime_error("Failed to load texture from " + filename);
-        textures[filename] = newTexture;
+        m_textures[filename] = newTexture;
         return *newTexture;
     }
     void ResourceManager::removeTexture(const std::string &filename)
     {
-        textures.erase(filename);
+        m_textures.erase(filename);
     }
 
     rtd::Sprite &ResourceManager::getSprite(const std::string &filename)
     {
-        if (sprites.find(filename) != sprites.end())
-            return *sprites.at(filename);
+        if (m_sprites.find(filename) != m_sprites.end())
+            return *m_sprites.at(filename);
 
         std::cout << "Generate sprite from " << filename << std::endl;
-        sprites[filename] = std::make_shared<rtd::Sprite>(filename);
-        return *sprites.at(filename);
+        m_sprites[filename] = std::make_shared<rtd::Sprite>(filename);
+        return *m_sprites.at(filename);
     }
     void ResourceManager::removeSprite(const std::string &filename)
     {
-        sprites.erase(filename);
+        m_sprites.erase(filename);
     }
 }
