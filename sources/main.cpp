@@ -20,7 +20,9 @@ int main(int argc, char **argv)
     font.loadFromFile("resources\\CONSOLA.TTF");
     sf::Text text("", font);
     std::ostringstream ostr;
-    rtd::FpsTracker tracker;
+    rtd::FpsTracker tracker(1000);
+
+    bool fpsDisplay = false;
 
     while (window.isOpen())
     {
@@ -29,14 +31,18 @@ int main(int argc, char **argv)
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Tab)
+                fpsDisplay = true;
+            else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab)
+                fpsDisplay = false;
         }
         tracker.update();
 
         ostr.str("");
         ostr << "Average FPS: " << tracker.getAverageFps() << '\n'
-             << "Average Frame Time: " << tracker.getAverageFrameTime() << '\n'
-             << "Min Frame Time: " << tracker.getMinFrameTime() << '\n'
-             << "Max Frame Time: " << tracker.getMaxFrameTime();
+             << "Average Frame Time: " << tracker.getAverageFrameTime() << " ms\n"
+             << "Min Frame Time: " << tracker.getMinFrameTime() << " ms\n"
+             << "Max Frame Time: " << tracker.getMaxFrameTime() << " ms";
         text.setString(ostr.str());
 
         window.clear();
@@ -44,7 +50,8 @@ int main(int argc, char **argv)
         states.transform.translate(-16.f, -4.f);
         states.transform.scale(scaleFactor, scaleFactor);
         window.draw(map, states);
-        window.draw(text);
+        if (fpsDisplay)
+            window.draw(text);
         window.display();
     }
 
