@@ -13,6 +13,10 @@ namespace rtd
     {
         m_Postion = position;
     }
+    void Tile::setScale(float scale)
+    {
+        Tile::setScale(sf::Vector2f(scale, scale));
+    }
     void Tile::setScale(const sf::Vector2f &scale)
     {
         s_Scale = scale;

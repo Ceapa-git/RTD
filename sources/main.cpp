@@ -2,27 +2,33 @@
 #include "pchSFML.h"
 
 #include "tile.h"
+#include "events.h"
 
-#define COLS 30
-#define ROWS 30
-#define TILE_SIZE 16
+const int COLS = 90;
+const int ROWS = 60;
+const int TILE_SIZE = 16;
 
 int main(int argc, char **argv)
 {
+    std::cout << sizeof(rtd::Tile) << std::endl
+              << COLS * ROWS * sizeof(rtd::Tile) << std::endl;
     sf::RenderWindow window(sf::VideoMode::getFullscreenModes()[0], "RTD - roguelike towerdefnce of reverse", sf::Style::Fullscreen);
 
-    rtd::Tile tiles[ROWS][COLS];
+    float offset = TILE_SIZE / 2.f;
+
+    std::unique_ptr<std::unique_ptr<rtd::Tile[]>[]> tiles = std::make_unique<std::unique_ptr<rtd::Tile[]>[]>(ROWS);
     for (int y = 0; y < ROWS; y++)
     {
+        tiles[y] = std::make_unique<rtd::Tile[]>(COLS);
         for (int x = 0; x < COLS; x++)
         {
-            tiles[y][x].setPosition(sf::Vector2f(x * TILE_SIZE * 1.f, y * TILE_SIZE * 1.f));
+            tiles[y][x].setPosition(sf::Vector2f(x * TILE_SIZE * 1.f + offset, y * TILE_SIZE * 1.f + offset));
             tiles[y][x].setTexture("resources\\sprites\\hero_basic.png");
         }
     }
-    float scaleFactro = 2.f;
-    rtd::Tile::setScale(sf::Vector2f(scaleFactro, scaleFactro));
+    float scaleFactor = 1.f;
     sf::RenderStates states;
+    int dir = 0;
 
     while (window.isOpen())
     {
@@ -31,37 +37,9 @@ int main(int argc, char **argv)
         {
             if (event.type == sf::Event::Closed)
                 window.close();
-            else if (event.type == sf::Event::KeyPressed)
-            {
-                switch (event.key.code)
-                {
-                case sf::Keyboard::W:
-                    states.transform.translate(sf::Vector2f(0.f, -scaleFactro * TILE_SIZE));
-                    break;
-                case sf::Keyboard::A:
-                    states.transform.translate(sf::Vector2f(-scaleFactro * TILE_SIZE, 0.f));
-                    break;
-                case sf::Keyboard::S:
-                    states.transform.translate(sf::Vector2f(0.f, scaleFactro * TILE_SIZE));
-                    break;
-                case sf::Keyboard::D:
-                    states.transform.translate(sf::Vector2f(scaleFactro * TILE_SIZE, 0.f));
-                    break;
-                case sf::Keyboard::Up:
-                    scaleFactro *= 2.f;
-                    rtd::Tile::setScale(sf::Vector2f(scaleFactro, scaleFactro));
-                    break;
-                case sf::Keyboard::Down:
-                    scaleFactro /= 2.f;
-                    rtd::Tile::setScale(sf::Vector2f(scaleFactro, scaleFactro));
-                    break;
-                case sf::Keyboard::Enter:
-                    std::cout << scaleFactro << std::endl;
-                    break;
-                default:
-                    break;
-                }
-            }
+
+            rtd::moveEvent(event, states, dir);
+            rtd::zoomEvent(event, states, scaleFactor);
         }
 
         window.clear();

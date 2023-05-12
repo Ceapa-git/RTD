@@ -17,6 +17,7 @@ namespace rtd
         void setTexture(const char *filename);
         void setPosition(const sf::Vector2f &position);
 
+        static void setScale(float scale);
         static void setScale(const sf::Vector2f &scale);
 
         void draw(sf::RenderTarget &renderer, sf::RenderStates states) const override;

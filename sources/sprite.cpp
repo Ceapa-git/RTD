@@ -2,18 +2,21 @@
 #include "pchSFML.h"
 
 #include "sprite.h"
+#include "resourcemanager.h"
 
 namespace rtd
 {
     Sprite::Sprite(const char *filename)
     {
-        m_Texture.loadFromFile(filename);
+        ResourceManager &manager = ResourceManager::getInstance();
+        m_Texture = manager.getTexture(filename);
         m_Sprite.setTexture(m_Texture);
     }
 
     void Sprite::setTexture(const char *filename)
     {
-        m_Texture.loadFromFile(filename);
+        ResourceManager &manager = ResourceManager::getInstance();
+        m_Texture = manager.getTexture(filename);
         m_Sprite.setTexture(m_Texture);
     }
 
