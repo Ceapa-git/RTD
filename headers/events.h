@@ -10,7 +10,7 @@ namespace rtd
     const int LEFT = 1 << 1;
     const int DOWN = 1 << 2;
     const int RIGHT = 1 << 3;
-    void moveEvent(const sf::Event &event, sf::RenderStates &states, int &dir);
+    void moveEvent(const sf::Event &event, int &dir);
     void zoomEvent(const sf::Event &event, sf::RenderStates &states, float &scaleFactor);
 }
 

@@ -6,7 +6,7 @@
 
 namespace rtd
 {
-    void moveEvent(const sf::Event &event, sf::RenderStates &states, int &dir)
+    void moveEvent(const sf::Event &event, int &dir)
     {
         if (event.type != sf::Event::KeyPressed && event.type != sf::Event::KeyReleased)
             return;
