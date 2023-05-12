@@ -2,6 +2,7 @@
 #include "pchSFML.h"
 
 #include "resourcemanager.h"
+#include "sprite.h"
 
 namespace rtd
 {
@@ -16,14 +17,29 @@ namespace rtd
         if (textures.find(filename) != textures.end())
             return *textures.at(filename);
 
-        std::cout << "generate texture for " << filename << std::endl;
+        std::cout << "Generate texture from " << filename << std::endl;
         auto newTexture = std::make_shared<sf::Texture>();
-        newTexture->loadFromFile(filename);
+        if (!newTexture->loadFromFile(filename))
+            throw std::runtime_error("Failed to load texture from " + filename);
         textures[filename] = newTexture;
         return *newTexture;
     }
     void ResourceManager::removeTexture(const std::string &filename)
     {
         textures.erase(filename);
+    }
+
+    rtd::Sprite &ResourceManager::getSprite(const std::string &filename)
+    {
+        if (sprites.find(filename) != sprites.end())
+            return *sprites.at(filename);
+
+        std::cout << "Generate sprite from " << filename << std::endl;
+        sprites[filename] = std::make_shared<rtd::Sprite>(filename);
+        return *sprites.at(filename);
+    }
+    void ResourceManager::removeSprite(const std::string &filename)
+    {
+        sprites.erase(filename);
     }
 }

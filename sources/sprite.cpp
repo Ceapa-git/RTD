@@ -6,14 +6,14 @@
 
 namespace rtd
 {
-    Sprite::Sprite(const char *filename)
+    Sprite::Sprite(const std::string &filename)
     {
         ResourceManager &manager = ResourceManager::getInstance();
         m_Texture = manager.getTexture(filename);
         m_Sprite.setTexture(m_Texture);
     }
 
-    void Sprite::setTexture(const char *filename)
+    void Sprite::setTexture(const std::string &filename)
     {
         ResourceManager &manager = ResourceManager::getInstance();
         m_Texture = manager.getTexture(filename);
@@ -22,7 +22,6 @@ namespace rtd
 
     void Sprite::draw(sf::RenderTarget &target, sf::RenderStates states) const
     {
-        states.transform *= getTransform();
         target.draw(m_Sprite, states);
     }
 }

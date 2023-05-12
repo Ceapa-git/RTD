@@ -6,15 +6,15 @@
 
 namespace rtd
 {
-    class Sprite : public sf::Drawable, public sf::Transformable
+    class Sprite : public sf::Drawable
     {
 
     public:
         Sprite(){};
-        Sprite(const char *filename);
+        Sprite(const std::string &filename);
         ~Sprite(){};
 
-        void setTexture(const char *filename);
+        void setTexture(const std::string &filename);
 
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
