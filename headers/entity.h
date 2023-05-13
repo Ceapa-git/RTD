@@ -27,7 +27,7 @@ namespace rtd
         int m_updateCount;
 
     private:
-        inline static int s_updatedPerFrame = 20;
+        inline static int s_updatedPerFrame = 10;
     };
 }
 

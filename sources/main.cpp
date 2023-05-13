@@ -24,10 +24,14 @@ int main(int argc, char **argv)
 
     rtd::Entity entity({"resources\\sprites\\chest_mimic_open_anim_f0.png",
                         "resources\\sprites\\chest_mimic_open_anim_f1.png",
-                        "resources\\sprites\\chest_mimic_open_anim_f2.png"},
-                       100.f, 100.f);
+                        "resources\\sprites\\chest_mimic_open_anim_f2.png",
+                        "resources\\sprites\\chest_mimic_open_anim_f1.png"},
+                       32.f, 32.f);
 
     bool fpsDisplay = false;
+
+    double dTime = 0.0;
+    const double updateTime = 1.0 / 60.0;
 
     while (window.isOpen())
     {
@@ -40,9 +44,34 @@ int main(int argc, char **argv)
                 fpsDisplay = true;
             else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Tab)
                 fpsDisplay = false;
+            else if (event.type == sf::Event::KeyPressed)
+            {
+                switch (event.key.code)
+                {
+                case sf::Keyboard::Up:
+                    entity.move(0.f, -32.f);
+                    break;
+                case sf::Keyboard::Left:
+                    entity.move(-32.f, 0.f);
+                    break;
+                case sf::Keyboard::Down:
+                    entity.move(0.f, 32.f);
+                    break;
+                case sf::Keyboard::Right:
+                    entity.move(32.f, 0.f);
+                    break;
+                default:
+                    break;
+                }
+            }
         }
         tracker.update();
-        entity.update();
+        dTime += tracker.getLastFrameTime();
+        if (dTime >= updateTime)
+        {
+            entity.update();
+            dTime -= updateTime;
+        }
 
         if (fpsDisplay)
         {

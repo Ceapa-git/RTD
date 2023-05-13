@@ -31,7 +31,6 @@ namespace rtd
         }
         return sum / m_frameTimes.size();
     }
-
     double FpsTracker::getAverageFrameTime() const
     {
         double sum = 0.0;
@@ -39,16 +38,19 @@ namespace rtd
             sum += std::chrono::duration_cast<std::chrono::duration<double>>(frame_time).count();
         return sum / m_frameTimes.size() * 1000.0;
     }
-
     double FpsTracker::getMinFrameTime() const
     {
         auto it = std::min_element(m_frameTimes.begin(), m_frameTimes.end());
         return std::chrono::duration_cast<std::chrono::duration<double>>(*it).count() * 1000.0;
     }
-
     double FpsTracker::getMaxFrameTime() const
     {
         auto it = std::max_element(m_frameTimes.begin(), m_frameTimes.end());
         return std::chrono::duration_cast<std::chrono::duration<double>>(*it).count() * 1000.0;
+    }
+
+    double FpsTracker::getLastFrameTime() const
+    {
+        return std::chrono::duration_cast<std::chrono::duration<double>>(m_frameTimes.back()).count();
     }
 }

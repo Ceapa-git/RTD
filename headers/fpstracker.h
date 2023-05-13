@@ -20,6 +20,8 @@ namespace rtd
         double getMinFrameTime() const;
         double getMaxFrameTime() const;
 
+        double getLastFrameTime() const;
+
     private:
         int m_historySize;
         std::chrono::milliseconds m_averageTime;
