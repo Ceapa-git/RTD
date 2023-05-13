@@ -4,6 +4,7 @@
 #include "resourcemanager.h"
 #include "map.h"
 #include "fpstracker.h"
+#include "entity.h"
 
 int cols = 61;
 int rows = 34;
@@ -21,6 +22,11 @@ int main(int argc, char **argv)
     std::ostringstream ostr;
     rtd::FpsTracker tracker(1000);
 
+    rtd::Entity entity({"resources\\sprites\\chest_mimic_open_anim_f0.png",
+                        "resources\\sprites\\chest_mimic_open_anim_f1.png",
+                        "resources\\sprites\\chest_mimic_open_anim_f2.png"},
+                       100.f, 100.f);
+
     bool fpsDisplay = false;
 
     while (window.isOpen())
@@ -36,6 +42,7 @@ int main(int argc, char **argv)
                 fpsDisplay = false;
         }
         tracker.update();
+        entity.update();
 
         if (fpsDisplay)
         {
@@ -51,6 +58,7 @@ int main(int argc, char **argv)
         sf::RenderStates states;
         states.transform.translate(-16.f, -4.f);
         window.draw(map, states);
+        window.draw(entity, states);
         if (fpsDisplay)
             window.draw(text);
         window.display();
