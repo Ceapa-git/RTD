@@ -19,6 +19,10 @@ namespace rtd
         m_texture = manager.getTexture(filename);
         m_sprite.setTexture(m_texture);
     }
+    void Sprite::setScale(float scaleX, float scaleY)
+    {
+        m_sprite.setScale(scaleX, scaleY);
+    }
 
     void Sprite::draw(sf::RenderTarget &target, sf::RenderStates states) const
     {

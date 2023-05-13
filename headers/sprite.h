@@ -15,6 +15,7 @@ namespace rtd
         ~Sprite(){};
 
         void setTexture(const std::string &filename);
+        void setScale(float scaleX, float scaleY);
 
         void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 

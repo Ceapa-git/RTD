@@ -7,8 +7,7 @@
 
 int cols = 61;
 int rows = 34;
-int tileSize = 16;
-float scaleFactor = 2.f;
+int tileSize = 32;
 
 int main(int argc, char **argv)
 {
@@ -38,17 +37,19 @@ int main(int argc, char **argv)
         }
         tracker.update();
 
-        ostr.str("");
-        ostr << "Average FPS: " << tracker.getAverageFps() << '\n'
-             << "Average Frame Time: " << tracker.getAverageFrameTime() << " ms\n"
-             << "Min Frame Time: " << tracker.getMinFrameTime() << " ms\n"
-             << "Max Frame Time: " << tracker.getMaxFrameTime() << " ms";
-        text.setString(ostr.str());
+        if (fpsDisplay)
+        {
+            ostr.str("");
+            ostr << "Average FPS: " << std::fixed << std::setprecision(2) << tracker.getAverageFps() << '\n'
+                 << "Average Frame Time: " << std::fixed << std::setprecision(2) << tracker.getAverageFrameTime() << " ms\n"
+                 << "Min Frame Time: " << std::fixed << std::setprecision(2) << tracker.getMinFrameTime() << " ms\n"
+                 << "Max Frame Time: " << std::fixed << std::setprecision(2) << tracker.getMaxFrameTime() << " ms";
+            text.setString(ostr.str());
+        }
 
-        window.clear();
+        window.clear(sf::Color::Transparent);
         sf::RenderStates states;
         states.transform.translate(-16.f, -4.f);
-        states.transform.scale(scaleFactor, scaleFactor);
         window.draw(map, states);
         if (fpsDisplay)
             window.draw(text);

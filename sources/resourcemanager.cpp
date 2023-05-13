@@ -35,8 +35,10 @@ namespace rtd
             return *m_sprites.at(filename);
 
         std::cout << "Generate sprite from " << filename << std::endl;
-        m_sprites[filename] = std::make_shared<rtd::Sprite>(filename);
-        return *m_sprites.at(filename);
+        auto newSprite = std::make_shared<rtd::Sprite>(filename);
+        newSprite->setScale(2.f, 2.f);
+        m_sprites[filename] = newSprite;
+        return *newSprite;
     }
     void ResourceManager::removeSprite(const std::string &filename)
     {
