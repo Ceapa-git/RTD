@@ -3,3 +3,4 @@ obj
 *.exe
 Makefile
 resources
+*.dll

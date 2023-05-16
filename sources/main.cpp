@@ -5,6 +5,7 @@
 #include "map.h"
 #include "fpstracker.h"
 #include "entity.h"
+#include "music.h"
 
 int cols = 61;
 int rows = 34;
@@ -12,6 +13,7 @@ int tileSize = 32;
 
 int main(int argc, char **argv)
 {
+    std::cout<<"AAA\n";
     sf::RenderWindow window(sf::VideoMode::getFullscreenModes()[0], "RTD - roguelike towerdefnce of reverse", sf::Style::Fullscreen);
 
     rtd::Map map(rows, cols, tileSize);
@@ -33,6 +35,9 @@ int main(int argc, char **argv)
     double dTime = 0.0;
     const double updateTime = 1.0 / 60.0;
 
+    rtd::Music backgroundMusic("resources\\audio\\backgroundMusic.mp3");
+    backgroundMusic.play();
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -49,15 +54,19 @@ int main(int argc, char **argv)
                 switch (event.key.code)
                 {
                 case sf::Keyboard::Up:
+                case sf::Keyboard::W:
                     entity.move(0.f, -32.f);
                     break;
                 case sf::Keyboard::Left:
+                case sf::Keyboard::A:
                     entity.move(-32.f, 0.f);
                     break;
                 case sf::Keyboard::Down:
+                case sf::Keyboard::S:
                     entity.move(0.f, 32.f);
                     break;
                 case sf::Keyboard::Right:
+                case sf::Keyboard::D:
                     entity.move(32.f, 0.f);
                     break;
                 default:
@@ -67,7 +76,7 @@ int main(int argc, char **argv)
         }
         tracker.update();
         dTime += tracker.getLastFrameTime();
-        if (dTime >= updateTime)
+        while (dTime >= updateTime)
         {
             entity.update();
             dTime -= updateTime;
