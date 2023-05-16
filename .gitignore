@@ -4,3 +4,6 @@ obj
 Makefile
 resources
 *.dll
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
